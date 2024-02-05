@@ -1,4 +1,3 @@
-import { createProduct } from "@/domain/product/api";
 import React from "react";
 import ProductForm from "./form/ProductForm";
 
@@ -7,8 +6,8 @@ type Props = {
 };
 
 const 프로덕만들기 = ({ memeId }: Props) => {
-  const handleSuccess = (values) => {
-    createProduct({ ...values, msmeId });
+  const handleSuccess = (values: any) => {
+    console.log(values);
   };
   return (
     <div>
