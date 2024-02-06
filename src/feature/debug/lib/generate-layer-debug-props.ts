@@ -1,7 +1,4 @@
-import {
-  getIsomorphicCookie,
-  setIsomorphicCookie,
-} from "@/shared/lib/isomorphic-cookie";
+import { isomorphicCookie } from "@/shared/lib/isomorphic-cookie";
 import { HTMLAttributes } from "react";
 
 const LAYER_COLOR = {
@@ -19,15 +16,15 @@ type CustomHTMLAttributes<T> = {
 } & HTMLAttributes<T>;
 const D_ENABLED_COOKIE = "d-enabled";
 
-// TODO. 쿠리 정리.
+// TODO: 쿠리 정리.
 export const toggleEnabledCookie = async () => {
   const enabled = await getEnabledCookie();
 
-  setIsomorphicCookie(D_ENABLED_COOKIE, !enabled);
+  isomorphicCookie().set(D_ENABLED_COOKIE, !enabled);
 };
 
 export const getEnabledCookie = async () => {
-  return (await getIsomorphicCookie(D_ENABLED_COOKIE)) === "true";
+  return (await isomorphicCookie().get(D_ENABLED_COOKIE)) === "true";
 };
 
 export const generateLayerDebugProps = async <

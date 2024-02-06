@@ -6,6 +6,6 @@ export type GetArticlesQueryParams = {
   offset?: number;
 };
 
-export type ArticleServiceType = {
+export type ArticleService = {
   getArticles: (params?: GetArticlesQueryParams) => any;
 };
