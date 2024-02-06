@@ -1,3 +1,6 @@
+import { ProfileModel } from "@/entity/profile/@x/article";
+import { ArticleModel } from "../model";
+
 export type GetArticlesQueryParams = {
   tag?: string;
   author?: string;
@@ -6,6 +9,13 @@ export type GetArticlesQueryParams = {
   offset?: number;
 };
 
+export type GetARticlesResponse = {
+  articles: ArticleModel[];
+  articlesCount: number;
+};
+
 export type ArticleService = {
-  getArticles: (params?: GetArticlesQueryParams) => any;
+  getArticles: (
+    params?: GetArticlesQueryParams
+  ) => Promise<GetARticlesResponse>;
 };
