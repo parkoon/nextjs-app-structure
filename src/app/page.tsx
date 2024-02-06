@@ -1,16 +1,10 @@
-import UserCard from "@/entity/user/ui/UserCard";
-import { DebugToggleButton } from "@/feature/debug/ui/DebugToggleButton";
-import { Button } from "@/shared/ui/button";
+import { ArticleService } from "@/entity/article/api/service";
 
-export default function Home() {
-  return (
-    <main className="border-green p-10">
-      <div>
-        <div className="p-10 bg-gray-400">TEST</div>
-        <UserCard user={{}} />
-        <Button />
-        <DebugToggleButton />
-      </div>
-    </main>
-  );
-}
+const HomePage = async () => {
+  const res = await ArticleService.getArticles();
+
+  // console.log(res);
+  return <div>{JSON.stringify(res)}</div>;
+};
+
+export default HomePage;

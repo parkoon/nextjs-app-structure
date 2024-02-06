@@ -19,6 +19,7 @@ type CustomHTMLAttributes<T> = {
 } & HTMLAttributes<T>;
 const D_ENABLED_COOKIE = "d-enabled";
 
+// TODO. 쿠리 정리.
 export const toggleEnabledCookie = async () => {
   const enabled = await getEnabledCookie();
 
