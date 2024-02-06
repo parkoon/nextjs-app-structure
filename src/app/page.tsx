@@ -1,6 +1,6 @@
 import UserCard from "@/entity/user/ui/UserCard";
 import { DebugToggleButton } from "@/feature/debug/ui/DebugToggleButton";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui/button";
 
 export default function Home() {
   return (
