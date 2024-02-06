@@ -1,23 +1,45 @@
 import { getCookie, setCookie } from "cookies-next";
 
-export const getIsomorphicCookie = async (name: string) => {
+// const isServer = () => typeof window === "undefined";
+// export const getIsomorphicCookie = async (name: string) => {
+//   if (isServer()) {
+//     const { cookies: serverCookies } = await import("next/headers");
+
+//     return serverCookies().get(name as string)?.value;
+//   }
+//   return getCookie(name as string)?.toString();
+// };
+
+// export const setIsomorphicCookie = async (name: string, value: unknown) => {
+//   if (isServer()) {
+//     const { cookies: serverCookies } = await import("next/headers");
+
+//     return serverCookies().set(name, JSON.stringify(value));
+//   }
+//   return setCookie(name, JSON.stringify(value));
+// };
+
+export const isomorphicCookie = () => {
   const isServer = typeof window === "undefined";
 
-  if (isServer) {
-    const { cookies: serverCookies } = await import("next/headers");
+  const get = async (name: string) => {
+    if (isServer) {
+      const { cookies: serverCookies } = await import("next/headers");
 
-    return serverCookies().get(name as string)?.value;
-  }
-  return getCookie(name as string)?.toString();
-};
+      return serverCookies().get(name as string)?.value;
+    }
+    return getCookie(name as string)?.toString();
+  };
 
-export const setIsomorphicCookie = async (name: string, value: unknown) => {
-  const isServer = typeof window === "undefined";
+  const set = async (name: string, value: unknown) => {
+    const v = JSON.stringify(value);
+    if (isServer) {
+      const { cookies: serverCookies } = await import("next/headers");
 
-  if (isServer) {
-    const { cookies: serverCookies } = await import("next/headers");
+      return serverCookies().set(name, v);
+    }
+    return setCookie(name, v);
+  };
 
-    return serverCookies().set(name, JSON.stringify(value));
-  }
-  return setCookie(name, JSON.stringify(value));
+  return { get, set };
 };
