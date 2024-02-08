@@ -13,7 +13,7 @@ const interceptor: FetcherOptions["interceptor"] = {
       ...(authorization && {
         headers: { ...init?.headers, Authorization: `Bearer ${authorization}` },
       }),
-    } as RequestInit;
+    };
   },
 };
 
