@@ -24,4 +24,11 @@ export const userService: UserService = {
     });
     return res.json();
   },
+  getUser: async () => {
+    const res = await realWorldHttp("/api/user", {
+      method: "get",
+    });
+    const data = (await res.json()) as { user: UserScheme };
+    return data;
+  },
 };

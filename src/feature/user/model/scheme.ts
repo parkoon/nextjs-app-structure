@@ -14,3 +14,13 @@ export const signInFormScheme = z.object({
 });
 
 export type SignInFormScheme = z.infer<typeof signInFormScheme>;
+
+export const userScheme = z.object({
+  email: z.string().email(),
+  token: z.string(),
+  username: z.string(),
+  bio: z.string(),
+  image: z.string().nullable(),
+});
+
+export type UserScheme = z.infer<typeof userScheme>;

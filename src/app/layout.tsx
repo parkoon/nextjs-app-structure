@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import { cookies } from "next/headers";
+import { cookieKey } from "@/shared/config";
+import { userService } from "@/feature/user/api/service";
+import { useRouter } from "next/navigation";
+import { NavItem } from "@/shared/ui/nav-item";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +20,56 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookie = cookies().get(cookieKey.token);
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="p-4">
+          {cookie?.value ? <UserNavigation /> : <GuestNavigation />}
+        </div>
+        {children}
+      </body>
     </html>
   );
 }
+
+const UserNavigation = async () => {
+  const { user } = await userService.getUser();
+  return (
+    <nav>
+      <ul className="flex gap-2 text-slate-400">
+        <li>
+          <NavItem href="/">Home</NavItem>
+        </li>
+        <li>
+          <NavItem href="/editor">New Article</NavItem>
+        </li>
+        <li>
+          <NavItem href="/settings">Settings</NavItem>
+        </li>
+        <li>
+          <NavItem href={`/profile/${user.username}`}>{user.username}</NavItem>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+
+const GuestNavigation = () => {
+  return (
+    <nav>
+      <ul className="flex gap-2 text-slate-400">
+        <li>
+          <NavItem href="/">Home</NavItem>
+        </li>
+        <li>
+          <NavItem href="/login">Sign In</NavItem>
+        </li>
+        <li>
+          <NavItem href="/register">Sign Up</NavItem>
+        </li>
+      </ul>
+    </nav>
+  );
+};
