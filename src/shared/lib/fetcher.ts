@@ -1,15 +1,19 @@
 import qs from "querystring";
 
+type RequestInitWithBody = Omit<RequestInit, "body"> & {
+  body?: Record<string | number | symbol, unknown>;
+};
+
 export type FetcherOptions = {
   baseUrl?: string;
   interceptor?: {
-    request?: (init?: RequestInit) => Promise<RequestInit>;
+    request?: (init?: RequestInitWithBody) => Promise<RequestInitWithBody>;
     response?: (res: Response) => Response | void;
   };
   headers?: HeadersInit;
 };
 
-type RequestInitWithQueryParams = RequestInit & {
+type RequestInitWithQueryParams = RequestInitWithBody & {
   query?: qs.ParsedUrlQueryInput;
 };
 
@@ -31,12 +35,16 @@ export const fetcher = ({
       updatedInit = await interceptor.request(init);
     }
 
+    const body = init?.body ? JSON.stringify(init.body) : null;
+
     const res = await fetch(url, {
       ...updatedInit,
       headers: {
         ...updatedInit?.headers,
+        ...(body && { "Content-Type": "application/json" }),
         ...headers,
       },
+      body,
     });
 
     if (!res.ok) {
