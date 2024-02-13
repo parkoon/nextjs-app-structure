@@ -14,4 +14,14 @@ export const userService: UserService = {
     });
     return res.json();
   },
+  postLogin: async (query) => {
+    const res = await realWorldHttp(ENDPOINT + "/login", {
+      method: "post",
+      body: { user: query?.user },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.json();
+  },
 };
