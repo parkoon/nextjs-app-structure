@@ -3,7 +3,9 @@ import ArticleList from "@/feature/article/ui/ArticleList";
 const HomePage = async () => {
   return (
     <div>
-      <ArticleList />
+      <div className="max-w-[75%]">
+        <ArticleList />
+      </div>
     </div>
   );
 };

@@ -9,5 +9,6 @@ export type ArticleModel = {
   createdAt: string;
   updatedAt: string;
   favorited: false;
+  favoritesCount: number;
   author: ProfileModel;
 };
