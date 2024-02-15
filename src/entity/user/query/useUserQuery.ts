@@ -1,1 +1,1 @@
-import { generateQueryKey } from "@/shared/lib/query-key";
+import { generateQueryKey } from "@/shared/libs/query-key";

@@ -1,4 +1,4 @@
-import { isomorphicCookie } from "@/shared/lib/isomorphic-cookie";
+import { isomorphicCookie } from "@/shared/libs/isomorphic-cookie";
 import { HTMLAttributes } from "react";
 
 const LAYER_COLOR = {

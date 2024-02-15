@@ -7,4 +7,8 @@ export const articleService: ArticleService = {
     const res = await realWorldHttp(ENDPOINT, { query });
     return res.json();
   },
+  getArticle: async (slug) => {
+    const res = await realWorldHttp(`${ENDPOINT}/${slug}`);
+    return res.json();
+  },
 };

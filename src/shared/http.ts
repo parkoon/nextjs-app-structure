@@ -1,5 +1,5 @@
-import { FetcherOptions, fetcher } from "@/shared/lib/fetcher";
-import { isomorphicCookie } from "@/shared/lib/isomorphic-cookie";
+import { FetcherOptions, fetcher } from "@/shared/libs/fetcher";
+import { isomorphicCookie } from "@/shared/libs/isomorphic-cookie";
 import { cookieKey } from "./config";
 
 const BASE_URL = "https://api.realworld.io";

@@ -1,6 +1,11 @@
-import { ProfileModel } from "@/entity/profile/@x/article";
+export type ProfileDto = {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+};
 
-export type ArticleModel = {
+export type ArticleDto = {
   slug: string;
   title: string;
   description: string;
@@ -10,5 +15,5 @@ export type ArticleModel = {
   updatedAt: string;
   favorited: false;
   favoritesCount: number;
-  author: ProfileModel;
+  author: ProfileDto;
 };

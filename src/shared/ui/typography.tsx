@@ -1,14 +1,14 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "../libs/utils";
 
 // https://github.com/shadcn-ui/ui/issues/315#issuecomment-1882739488
 
 export const typographyVariants = cva("text-xl", {
   variants: {
     variant: {
-      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg: text-5xl",
-      h2: "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+      h2: "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0",
       h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
       h4: "scroll-m-20 text-xl font-semibold tracking-tight",
       p: "leading-7 [&:not(:first-child)]:mt-6",
