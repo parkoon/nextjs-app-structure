@@ -9,10 +9,12 @@ type NavItemProps = {
 
 export const NavItem = ({ href, children }: NavItemProps) => {
   const pathname = usePathname();
-  const className = pathname === href ? "text-slate-900" : "";
+  const className = pathname === href ? "nav-link active" : "nav-link";
   return (
-    <Link href={href} className={className}>
-      {children}
-    </Link>
+    <li className="nav-item">
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    </li>
   );
 };
