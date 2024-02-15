@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/feature/user/ui/SignUpForm/ui";
+import { SignUpForm } from "@/feature/session/SignUpForm";
 
 const RegisterPage = () => {
   return <SignUpForm />;

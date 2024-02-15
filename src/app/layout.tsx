@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 import { cookies } from "next/headers";
 import { cookieKey } from "@/shared/config";
-import { userService } from "@/feature/user/api/service";
-import { useRouter } from "next/navigation";
 import { NavItem } from "@/shared/ui/nav-item";
 import { QueryClientProvider } from "@/shared/lib/react-query/QueryClientProvider";
+import { userService } from "@/shared/api/users";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,11 +23,38 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <title>Conduit</title>
+        <link
+          href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+        <link
+          href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
+          rel="stylesheet"
+          type="text/css"
+        />
+        <link rel="stylesheet" href="//demo.productionready.io/main.css" />
+      </head>
+
       <body className={inter.className}>
         <QueryClientProvider>
           {cookie?.value ? <UserNavigation /> : <GuestNavigation />}
           {children}
         </QueryClientProvider>
+        <footer>
+          <div className="container">
+            <a href="/" className="logo-font">
+              conduit
+            </a>
+            <span className="attribution">
+              An interactive learning project from{" "}
+              <a href="https://thinkster.io">Thinkster</a>. Code &amp; design
+              licensed under MIT.
+            </span>
+          </div>
+        </footer>
       </body>
     </html>
   );
@@ -38,39 +63,43 @@ export default function RootLayout({
 const UserNavigation = async () => {
   const { user } = await userService.getUser();
   return (
-    <nav>
-      <ul className="flex gap-2 text-slate-400">
-        <li>
+    <nav className="navbar navbar-light">
+      <div className="container">
+        <a className="navbar-brand" href="/">
+          conduit
+        </a>
+        <ul className="nav navbar-nav pull-xs-right">
           <NavItem href="/">Home</NavItem>
-        </li>
-        <li>
-          <NavItem href="/editor">New Article</NavItem>
-        </li>
-        <li>
-          <NavItem href="/settings">Settings</NavItem>
-        </li>
-        <li>
-          <NavItem href={`/profile/${user.username}`}>{user.username}</NavItem>
-        </li>
-      </ul>
+          <NavItem href="/editor">
+            <i className="ion-compose" />
+            New Article
+          </NavItem>
+          <NavItem href="/settings">
+            <i className="ion-gear-a" /> Settings
+          </NavItem>
+          <NavItem href={`/profile/${user.username}`}>
+            <img src={user.image ?? ""} className="user-pic" />
+            {user.username}
+          </NavItem>
+        </ul>
+      </div>
     </nav>
   );
 };
 
 const GuestNavigation = () => {
   return (
-    <nav>
-      <ul className="flex gap-2 text-slate-400">
-        <li>
+    <nav className="navbar navbar-light">
+      <div className="container">
+        <a className="navbar-brand" href="/">
+          conduit
+        </a>
+        <ul className="nav navbar-nav pull-xs-right">
           <NavItem href="/">Home</NavItem>
-        </li>
-        <li>
           <NavItem href="/login">Sign In</NavItem>
-        </li>
-        <li>
           <NavItem href="/register">Sign Up</NavItem>
-        </li>
-      </ul>
+        </ul>
+      </div>
     </nav>
   );
 };

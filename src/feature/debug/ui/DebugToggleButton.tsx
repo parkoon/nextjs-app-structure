@@ -1,12 +1,12 @@
 "use client";
 
-import Checkbox from "@/shared/ui/Checkbox";
 import {
   getEnabledCookie,
   toggleEnabledCookie,
 } from "../lib/generate-layer-debug-props";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Checkbox } from "@/shared/ui";
 
 export const DebugToggleButton = () => {
   const [checked, setChecked] = useState(false);

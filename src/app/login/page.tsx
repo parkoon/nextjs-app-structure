@@ -1,4 +1,4 @@
-import { SignInForm } from "@/feature/user/ui/SignInForm/ui";
+import { SignInForm } from "@/feature/session/SignInForm";
 
 const LoginPage = () => {
   return <SignInForm />;

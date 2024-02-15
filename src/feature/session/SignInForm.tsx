@@ -1,31 +1,43 @@
 "use client";
+import { useSignInMutation } from "@/entity/session/api";
+import { signInDtoScheme } from "@/shared/api/models";
+import { SignInDto } from "@/shared/api/types";
+import { cookieKey } from "@/shared/config";
+import {
+  FormField,
+  FormItem,
+  FormControl,
+  Input,
+  Button,
+  Typography,
+  Form,
+} from "@/shared/ui";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
-import Typography from "@/shared/ui/typography";
-import { useForm } from "react-hook-form";
-import { Input } from "@/shared/ui/input";
-import { Button } from "@/shared/ui/button";
-import { useFormState } from "react-dom";
-import { signInFormScheme, SignInFormScheme } from "../../model/scheme";
-import { SignInFormState, signInFormAction } from "./action";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
-const initialState: SignInFormState = {
-  isSuccess: false,
-};
+import { useForm } from "react-hook-form";
+
 export const SignInForm = () => {
-  const form = useForm<SignInFormScheme>({
-    resolver: zodResolver(signInFormScheme),
+  const form = useForm<SignInDto>({
+    resolver: zodResolver(signInDtoScheme),
   });
-  const [state, formAction] = useFormState(signInFormAction, initialState);
   const router = useRouter();
+  const { mutate } = useSignInMutation();
 
-  useEffect(() => {
-    if (state.isSuccess) {
-      router.replace("/");
-    }
-  }, [router, state.isSuccess]);
+  const onSubmit = (data: SignInDto) => {
+    mutate(
+      { user: data },
+      {
+        onSuccess: (res) => {
+          setCookie(cookieKey.token, res.user.token);
+          router.push("/");
+          router.refresh();
+        },
+      }
+    );
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -37,7 +49,10 @@ export const SignInForm = () => {
       </div>
 
       <Form {...form}>
-        <form action={formAction} className="flex flex-col gap-2 items-center">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-2 items-center"
+        >
           <FormField
             defaultValue=""
             control={form.control}
