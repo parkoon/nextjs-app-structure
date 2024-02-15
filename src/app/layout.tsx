@@ -7,6 +7,7 @@ import { cookieKey } from "@/shared/config";
 import { userService } from "@/feature/user/api/service";
 import { useRouter } from "next/navigation";
 import { NavItem } from "@/shared/ui/nav-item";
+import { QueryClientProvider } from "@/shared/lib/react-query/QueryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,10 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="p-4">
+        <QueryClientProvider>
           {cookie?.value ? <UserNavigation /> : <GuestNavigation />}
-        </div>
-        {children}
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   );
