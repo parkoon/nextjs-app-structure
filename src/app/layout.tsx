@@ -37,7 +37,6 @@ export default function RootLayout({
         />
         <link rel="stylesheet" href="//demo.productionready.io/main.css" />
       </head>
-
       <body className={inter.className}>
         <QueryClientProvider>
           {cookie?.value ? <UserNavigation /> : <GuestNavigation />}
