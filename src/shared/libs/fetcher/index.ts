@@ -2,6 +2,7 @@ import { ParsedUrlQueryInput } from "querystring";
 import { httpError, internalError, networkError } from "./fetch.exceptions";
 import { formatUrl } from "./fetch.libs";
 import { HttpMethod, RequestBody } from "./fetch.types";
+import { ZodType } from "zod";
 
 type APIRequest = {
   method: HttpMethod;
@@ -11,12 +12,38 @@ type APIRequest = {
   url: string;
 };
 
-type APIConfig = {
+type APIResponse<T> = {
+  contact?: T;
+  map?: any;
+};
+
+type APIConfig<T> = {
   request: APIRequest;
+  response?: APIResponse<T>;
   abort?: AbortSignal;
 };
 
-export async function fetcher(config: APIConfig) {
+export function zodContract<T>(data: ZodType<T>) {
+  const isData = (prepared: unknown): prepared is T =>
+    data.safeParse(prepared).success;
+
+  return {
+    isData,
+    getErrorMessages(raw: T) {
+      const validation = data.safeParse(raw);
+      if (validation.success) {
+        return [];
+      }
+
+      return validation.error.errors.map((e) => {
+        const path = e.path.join(".");
+        return path !== "" ? `${e.message}, path: ${path}` : e.message;
+      });
+    },
+  };
+}
+
+export const fetcher = async <T>(config: APIConfig<T>) => {
   const response = await fetch(
     formatUrl({ href: config.request.url, query: config.request.query }),
     {
@@ -53,5 +80,11 @@ export async function fetcher(config: APIConfig) {
         });
       });
 
+  const a = zodContract(config.response?.contact as any);
+
+  if (!a.isData(data)) {
+    throw { message: "is data false" };
+  }
+
   return data;
-}
+};

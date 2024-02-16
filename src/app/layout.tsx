@@ -1,8 +1,8 @@
+import { ReactQueryProvider } from "@/shared/libs/react-query/query.provider";
+import { Toaster } from "@/shared/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/shared/ui/toaster";
-import { ReactQueryProvider } from "@/shared/libs/react-query/query.provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
