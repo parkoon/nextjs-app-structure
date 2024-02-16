@@ -6,8 +6,13 @@ import Typography from "@/shared/ui/typography";
 import Link from "next/link";
 
 const ArticleList = async () => {
-  const { articles } = await articleService.getArticles();
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos/1")
+    .then((response) => response.json())
+    .then((json) => json);
 
+  // console.log(res);
+  return <div>{JSON.stringify(res)}</div>;
+  const { articles } = await articleService.getArticles();
   return (
     <section className="flex flex-col gap-4">
       {articles.map((article) => (

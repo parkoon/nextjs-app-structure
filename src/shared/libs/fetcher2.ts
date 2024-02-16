@@ -37,7 +37,12 @@ export const fetcher = ({
         ...updatedInit?.headers,
         ...headers,
       },
+    }).catch((err) => {
+      console.log("error here.....");
+      throw { foo: "bar" };
     });
+
+    console.log("###", res);
 
     if (!res.ok) {
       throw new Error("에러정보");
