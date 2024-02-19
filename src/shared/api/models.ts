@@ -33,6 +33,13 @@ export const updateUserDtoScheme = z
     message: "One of the fields must be defined",
   });
 
+export const profileDtoScheme = z.object({
+  username: z.string(),
+  bio: z.string(),
+  image: z.string(),
+  following: z.boolean(),
+});
+
 export const userScheme = z.object({
   email: z.string().email(),
   token: z.string(),

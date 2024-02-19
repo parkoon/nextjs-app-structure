@@ -48,6 +48,7 @@ export const fetcher = ({
     });
 
     if (!res.ok) {
+      console.log(res.status, res.statusText);
       throw new Error("에러정보");
     }
 
