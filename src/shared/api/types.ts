@@ -1,5 +1,7 @@
 import { z } from "zod";
 import {
+  articleDtoScheme,
+  feedDtoScheme,
   profileDtoScheme,
   signInDtoScheme,
   signUpDtoScheme,
@@ -15,3 +17,6 @@ export type SignInDto = z.infer<typeof signInDtoScheme>;
 export type UpdateUserDto = z.infer<typeof updateUserDtoScheme>;
 export type ProfileDto = z.infer<typeof profileDtoScheme>;
 export type User = z.infer<typeof userScheme>;
+
+export type ArticleDto = z.infer<typeof articleDtoScheme>;
+export type FeedDto = z.infer<typeof feedDtoScheme>;

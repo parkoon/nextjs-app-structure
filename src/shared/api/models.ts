@@ -47,3 +47,28 @@ export const userScheme = z.object({
   bio: z.string(),
   image: z.string(),
 });
+
+const authorDtoScheme = z.object({
+  username: z.string(),
+  bio: z.string(),
+  image: z.string(),
+  following: z.boolean(),
+});
+
+export const articleDtoScheme = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  body: z.string(),
+  tagList: z.array(z.string()),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  favorited: z.string(),
+  favoritesCount: z.number(),
+  author: authorDtoScheme,
+});
+
+export const feedDtoScheme = z.object({
+  articles: z.array(articleDtoScheme),
+  articlesCount: z.number(),
+});
