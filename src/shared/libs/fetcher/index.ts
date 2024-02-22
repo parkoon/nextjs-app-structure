@@ -12,20 +12,24 @@ type APIRequest = {
   url: string;
 };
 
-type APIResponse<T> = {
-  contact?: T;
-  map?: any;
+type APIResponse<ContractData, MappedData> = {
+  contact: Contract<ContractData>;
+  map: (data: ContractData) => MappedData;
 };
 
-type APIConfig<T> = {
+type APIConfig<ContractData, MappedData> = {
   request: APIRequest;
-  response?: APIResponse<T>;
+  response: APIResponse<ContractData, MappedData>;
   abort?: AbortSignal;
 };
 
-export function zodContract<T>(data: ZodType<T>) {
-  const isData = (prepared: unknown): prepared is T =>
-    data.safeParse(prepared).success;
+export type Contract<T> = {
+  isData: (prepared: T) => boolean;
+  getErrorMessages: (raw: T) => string[];
+};
+
+export function zodContract<T>(data: ZodType<T>): Contract<T> {
+  const isData = (prepared: T) => data.safeParse(prepared).success;
 
   return {
     isData,
@@ -43,7 +47,9 @@ export function zodContract<T>(data: ZodType<T>) {
   };
 }
 
-export const fetcher = async <T>(config: APIConfig<T>) => {
+export const fetcher = async <ContractData, MappedData>(
+  config: APIConfig<ContractData, MappedData>
+) => {
   const response = await fetch(
     formatUrl({ href: config.request.url, query: config.request.query }),
     {
@@ -80,11 +86,12 @@ export const fetcher = async <T>(config: APIConfig<T>) => {
         });
       });
 
-  const a = zodContract(config.response?.contact as any);
-
-  if (!a.isData(data)) {
-    throw { message: "is data false" };
+  if (config.response?.contact && !config.response?.contact.isData(data)) {
+    throw {
+      validationErrors: config.response.contact.getErrorMessages(data),
+      response: data,
+    };
   }
 
-  return data;
+  return config.response.map(data);
 };

@@ -6,7 +6,6 @@ import { CreateUserSchema } from "./session.schema";
 
 export const sessionService = {
   login: () => {},
-
   register: async (user: CreateUserDto) => {
     const res = await fetcher({
       request: {
@@ -15,7 +14,8 @@ export const sessionService = {
         body: JSON.stringify({ user }),
       },
       response: {
-        contact: CreateUserSchema,
+        contact: zodContract(CreateUserSchema),
+        map: (v) => v,
       },
     });
 

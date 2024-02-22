@@ -13,7 +13,7 @@ export const useRegisterMutation = () => {
     mutationFn: (data: CreateUserDto) => {
       //
 
-      const res = sessionService.register(data);
+      return sessionService.register(data);
     },
     onSuccess: (data) => {},
   });

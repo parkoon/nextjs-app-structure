@@ -33,18 +33,18 @@ export const SignUpForm = () => {
 
   const onSubmit = (data: CreateUserDto) => {
     // throw { message: "zz" };
+    // TODO: 폼 에러처리를 어떻게 하는게 좋을까?
     mutate(data, {
       onError: mutationErrorHandler({
         onHttpError(err) {},
       }),
+      onSuccess: (values) => {},
     });
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        {/* TODO: mutation 에러 처리를 더 깔끔하게 할 수 있을까? */}
-        {JSON.stringify(error)}
         <FormField
           control={form.control}
           name="username"
