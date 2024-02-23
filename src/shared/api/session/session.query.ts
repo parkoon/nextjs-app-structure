@@ -1,20 +1,19 @@
+"use client";
+
 import { useMutation } from "@tanstack/react-query";
+import { sessionService } from "./session.service";
 import { sessionQueryKey } from "./session.query-key";
-import { fetcher, zodContract } from "@/shared/libs/fetcher";
-import { realWorldPath } from "../api.libs";
-import { CreateUserDto } from "./session.types";
-import { sessionService } from ".";
-import { CreateUserSchema } from "./session.schema";
-import { UserDto } from "@/entity/user/api/types";
+import { CreateUserDto, LoginUserDto } from "./session.types";
 
 export const useRegisterMutation = () => {
   return useMutation({
     mutationKey: sessionQueryKey.register(),
-    mutationFn: (data: CreateUserDto) => {
-      //
-
-      return sessionService.register(data);
-    },
-    onSuccess: (data) => {},
+    mutationFn: (data: CreateUserDto) => sessionService.register(data),
   });
 };
+
+export const useLoginMutation = () =>
+  useMutation({
+    mutationKey: sessionQueryKey.login(),
+    mutationFn: (data: LoginUserDto) => sessionService.login(data),
+  });
