@@ -4,7 +4,7 @@ import {
   useLoginMutation,
   useRegisterMutation,
 } from "@/shared/api/session/session.query";
-import { isHttpError } from "@/shared/libs/fetcher/fetch.exceptions";
+import { isHttpError } from "@/shared/libs/fetcher/fetcher.exceptions";
 import { mutationErrorHandler } from "@/shared/libs/react-query/query.exceptions";
 import { Button } from "@/shared/ui/button";
 import {

@@ -1,8 +1,7 @@
 import { ParsedUrlQueryInput } from "querystring";
-import { httpError, internalError, networkError } from "./fetch.exceptions";
-import { formatUrl } from "./fetch.libs";
-import { HttpMethod, RequestBody } from "./fetch.types";
-import { ZodType } from "zod";
+import { httpError, internalError, networkError } from "./fetcher.exceptions";
+import { formatUrl } from "./fetcher.libs";
+import { Contract, HttpMethod, RequestBody } from "./fetcher.types";
 
 type APIRequest = {
   method: HttpMethod;
@@ -12,44 +11,44 @@ type APIRequest = {
   url: string;
 };
 
-type APIResponse<ContractData, MappedData> = {
-  contact: Contract<ContractData>;
-  map: (data: ContractData) => MappedData;
-};
-
-type APIConfig<ContractData, MappedData> = {
+export async function fetcher<ContractData, MappedData>(config: {
   request: APIRequest;
-  response: APIResponse<ContractData, MappedData>;
-  abort?: AbortSignal;
-};
-
-export type Contract<T> = {
-  isData: (prepared: T) => boolean;
-  getErrorMessages: (raw: T) => string[];
-};
-
-export function zodContract<T>(data: ZodType<T>): Contract<T> {
-  const isData = (prepared: T) => data.safeParse(prepared).success;
-
-  return {
-    isData,
-    getErrorMessages(raw: T) {
-      const validation = data.safeParse(raw);
-      if (validation.success) {
-        return [];
-      }
-
-      return validation.error.errors.map((e) => {
-        const path = e.path.join(".");
-        return path !== "" ? `${e.message}, path: ${path}` : e.message;
-      });
-    },
+  response: {
+    map: (data: ContractData) => MappedData;
+    contact: Contract<ContractData>;
   };
-}
+  abort?: AbortSignal;
+}): Promise<MappedData>;
 
-export const fetcher = async <ContractData, MappedData>(
-  config: APIConfig<ContractData, MappedData>
-) => {
+export async function fetcher<ContractData, MappedData>(config: {
+  request: APIRequest;
+  response: {
+    map: (data: ContractData) => MappedData;
+  };
+  abort?: AbortSignal;
+}): Promise<MappedData>;
+
+export async function fetcher<ContractData>(config: {
+  request: APIRequest;
+  response: {
+    contact: Contract<ContractData>;
+  };
+  abort?: AbortSignal;
+}): Promise<ContractData>;
+
+export async function fetcher(config: {
+  request: APIRequest;
+  abort?: AbortSignal;
+}): Promise<unknown>;
+
+export async function fetcher<ContractData, MappedData>(config: {
+  request: APIRequest;
+  response?: {
+    contact?: Contract<ContractData>;
+    map?: (data: ContractData) => MappedData;
+  };
+  abort?: AbortSignal;
+}) {
   const response = await fetch(
     formatUrl({ href: config.request.url, query: config.request.query }),
     {
@@ -93,5 +92,5 @@ export const fetcher = async <ContractData, MappedData>(
     };
   }
 
-  return config.response.map(data);
-};
+  return config?.response?.map ? config?.response?.map(data) : data;
+}

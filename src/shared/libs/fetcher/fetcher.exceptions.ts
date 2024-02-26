@@ -1,12 +1,11 @@
 import {
-  CommonError,
   HTTP,
   HttpError,
   INTERNAL,
   InternalError,
   NETWORK,
   NetworkError,
-} from "./fetch.types";
+} from "./fetcher.types";
 
 /**
  * @see https://web.dev/articles/fetch-api-error-handling?hl=ko

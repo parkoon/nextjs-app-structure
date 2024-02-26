@@ -1,4 +1,4 @@
-import { fetcher } from "@/shared/libs/fetcher";
+import { fetcher } from "@/shared/libs/fetcher/fetcher.main";
 import { toUser } from "../adapter/toUser";
 import { UserDto } from "./types";
 

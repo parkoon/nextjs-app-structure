@@ -1,4 +1,5 @@
 import qs, { ParsedUrlQueryInput } from "querystring";
+import { ZodType } from "zod";
 
 export const formatUrl = (config: {
   href: string;

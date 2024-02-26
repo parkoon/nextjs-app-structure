@@ -33,3 +33,8 @@ export type InternalError = {
   response: string;
   reason: string | null;
 } & CommonError<typeof INTERNAL>;
+
+export type Contract<T> = {
+  isData: (prepared: T) => boolean;
+  getErrorMessages: (raw: T) => string[];
+};

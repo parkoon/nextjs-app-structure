@@ -3,7 +3,7 @@
 import { useRegisterMutation } from "@/shared/api/session/session.query";
 import { CreateUserDtoSchema } from "@/shared/api/session/session.schema";
 import { CreateUserDto } from "@/shared/api/session/session.types";
-import { isHttpError } from "@/shared/libs/fetcher/fetch.exceptions";
+import { isHttpError } from "@/shared/libs/fetcher/fetcher.exceptions";
 import { mutationErrorHandler } from "@/shared/libs/react-query/query.exceptions";
 import { Button } from "@/shared/ui/button";
 import {

@@ -2,8 +2,12 @@ import {
   isHttpError,
   isInternalError,
   isNetworkError,
-} from "../fetcher/fetch.exceptions";
-import { HttpError, InternalError, NetworkError } from "../fetcher/fetch.types";
+} from "../fetcher/fetcher.exceptions";
+import {
+  HttpError,
+  InternalError,
+  NetworkError,
+} from "../fetcher/fetcher.types";
 
 type MutationErrorCallback = {
   onNetworkError?(err: NetworkError): void;
