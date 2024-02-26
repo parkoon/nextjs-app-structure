@@ -3,6 +3,7 @@ import { Toaster } from "@/shared/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { NextAuthProvider } from "@/shared/libs/next-auth/next-auth.provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <ReactQueryProvider>
         <body className={inter.className}>
-          {children}
+          <NextAuthProvider>{children}</NextAuthProvider>
           <Toaster />
         </body>
       </ReactQueryProvider>

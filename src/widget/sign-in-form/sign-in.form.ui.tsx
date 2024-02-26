@@ -35,6 +35,7 @@ export const SignInForm = () => {
   });
 
   const onSubmit = async (data: LoginUserDto) => {
+    console.log("###", data);
     const res = await signIn("credentials", {
       email: data.email,
       password: data.password,
