@@ -2,6 +2,7 @@ import SuspenseWithErrorBoundary from "@/shared/libs/react/suspense-with-error-b
 import ArticleList from "@/widget/article/ui/ArticleList";
 import PageLayout from "@/widget/layout/ui/PageLayout";
 import TabBar from "@/widget/layout/ui/TabBar";
+import TabBarLayout from "@/widget/layout/ui/TabBarLayout";
 import { z } from "zod";
 
 const schemaA = z.object({
@@ -37,16 +38,14 @@ const HomePage = () => {
   console.log("###", schemaA?.safeParse(objectB));
 
   return (
-    <PageLayout>
+    <TabBarLayout>
       {/* <Exception> */}
 
       <SuspenseWithErrorBoundary>
         <ArticleList />
       </SuspenseWithErrorBoundary>
       {/* </Exception> */}
-
-      <TabBar />
-    </PageLayout>
+    </TabBarLayout>
   );
 };
 

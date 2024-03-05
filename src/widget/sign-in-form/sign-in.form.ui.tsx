@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import { LoginUserDto } from "@/shared/api/session/session.types";
 import { LoginUserDtoSchema } from "@/shared/api/session/session.schema";
+import Link from "next/link";
 
 export const SignInForm = () => {
   const form = useForm<LoginUserDto>({
@@ -83,6 +84,8 @@ export const SignInForm = () => {
           )}
         />
         <Button type="submit">Sign up</Button>
+
+        <Link href="/sign-up">회원가입</Link>
       </form>
     </Form>
   );

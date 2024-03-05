@@ -1,28 +1,38 @@
-"use client";
-
+import { getServerSession } from "next-auth";
 import Link from "next/link";
-import useInteractiveTabBarStyle from "../hooks/useInteractiveTabBarStyle";
-import { MdOutlineSearch } from "react-icons/md";
-import { MdOutlinePersonOutline } from "react-icons/md";
+import { FaHeart, FaHouse, FaUser } from "react-icons/fa6";
+import TabBarWrapper from "./TabBarWrapper";
 
-const TabBar = () => {
-  const style = useInteractiveTabBarStyle();
+const TabBar = async () => {
+  const session = await getServerSession();
 
   return (
-    <nav style={style} className="px-4">
-      <ul className="flex w-full">
-        <TabBarCell
-          href="/"
-          icon={<MdOutlineSearch size={24} />}
-          label="둘러보기"
-        />
-        <TabBarCell
-          href="/sign-up"
-          icon={<MdOutlinePersonOutline size={24} />}
-          label="로그인"
-        />
+    <TabBarWrapper>
+      <ul className="flex items-center w-full">
+        <TabBarCell href="/" icon={<FaHouse size={24} />} label="둘러보기" />
+
+        {session && (
+          <TabBarCell
+            href="/wishlist"
+            icon={<FaHeart size={24} />}
+            label="위시리스트"
+          />
+        )}
+        {session ? (
+          <TabBarCell
+            href="/profile"
+            icon={<FaUser size={24} />}
+            label="프로필"
+          />
+        ) : (
+          <TabBarCell
+            href="/sign-in"
+            icon={<FaUser size={24} />}
+            label="로그인"
+          />
+        )}
       </ul>
-    </nav>
+    </TabBarWrapper>
   );
 };
 
