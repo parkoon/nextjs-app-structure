@@ -1,4 +1,4 @@
-import { articleService } from "@/shared/api/article";
+import { getArticles } from "@/shared/api/article/article.api";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
@@ -6,7 +6,7 @@ import Typography from "@/shared/ui/typography";
 import Link from "next/link";
 
 const ArticleList = async () => {
-  const { articles } = await articleService.getArticles();
+  const { articles } = await getArticles();
   return (
     <section className="flex flex-col gap-4">
       {articles.map((article) => (

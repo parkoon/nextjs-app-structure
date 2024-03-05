@@ -25,3 +25,7 @@ This codebase containing real world examples (CRUD, auth, advanced patterns, etc
 // 6. Getting started
 // 7. Scripts
 // 8.
+
+참고
+
+- type safe env > https://github.com/noveogroup-amorgunov/nukeapp/blob/main/src/shared/lib/config.ts

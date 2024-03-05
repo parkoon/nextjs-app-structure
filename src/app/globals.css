@@ -77,28 +77,6 @@
 
 @layer components {
   .container {
-    margin: 0 auto;
     padding: 0 16px;
-  }
-
-  @media (min-width: 544px) {
-    .container {
-      max-width: 576px;
-    }
-  }
-  @media (min-width: 768px) {
-    .container {
-      max-width: 720px;
-    }
-  }
-  @media (min-width: 992px) {
-    .container {
-      max-width: 940px;
-    }
-  }
-  @media (min-width: 1200px) {
-    .container {
-      max-width: 1140px;
-    }
   }
 }

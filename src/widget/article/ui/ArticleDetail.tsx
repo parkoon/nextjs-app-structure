@@ -1,6 +1,6 @@
 import FavoriteArticle from "@/feature/favorite-article/ui";
 import FollowUser from "@/feature/follow-user/ui";
-import { articleService } from "@/shared/api/article";
+import { articleService } from "@/shared/api/article/article.api";
 import { Badge } from "@/shared/ui/badge";
 import Typography from "@/shared/ui/typography";
 import React from "react";

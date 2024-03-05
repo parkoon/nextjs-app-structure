@@ -1,4 +1,4 @@
-import { articleService } from "@/shared/api/article";
+import { articleService } from "@/shared/api/article/article.api";
 import ArticleDetail from "@/widget/article/ui/ArticleDetail";
 import ArticleDetailCommentList from "@/widget/article/ui/ArticleDetailCommentList";
 import { Suspense } from "react";
