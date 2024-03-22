@@ -1,10 +1,9 @@
+import { getAuthorizationHeader } from "@/entity/session/session.lib";
 import { fetcher } from "@/shared/libs/fetcher/fetcher.main";
 import { zodContract } from "@/shared/libs/zod/zod.libs";
+import { baseUrl } from "../api.libs";
 import { ArticleResponseSchema, ArticlesDtoSchema } from "./article.schema";
 import { ArticleQueryDto } from "./article.types";
-import { baseUrl } from "../api.libs";
-import { getSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
 
 export const getArticles = async (query?: ArticleQueryDto) => {
   const res = await fetcher({
@@ -25,15 +24,12 @@ export const getArticle = async (slug: string) => {
 };
 
 export const likeArticle = async (slug: string) => {
-  try {
-    const session = await getSession();
-
-    console.log("session", session);
-  } catch (err) {
-    console.log(err);
-  }
-
+  const authorizationHeader = await getAuthorizationHeader();
   return fetcher({
-    request: { method: "POST", url: baseUrl(`/articles/${slug}/favorite`) },
+    request: {
+      method: "POST",
+      url: baseUrl(`/articles/${slug}/favorite`),
+      headers: { ...authorizationHeader },
+    },
   });
 };
