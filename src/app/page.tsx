@@ -1,7 +1,5 @@
 import SuspenseWithErrorBoundary from "@/shared/libs/react/suspense-with-error-boundary";
 import ArticleList from "@/widget/article/ui/ArticleList";
-import PageLayout from "@/widget/layout/ui/PageLayout";
-import TabBar from "@/widget/layout/ui/TabBar";
 import TabBarLayout from "@/widget/layout/ui/TabBarLayout";
 import { z } from "zod";
 

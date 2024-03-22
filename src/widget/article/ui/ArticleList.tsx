@@ -1,3 +1,4 @@
+import ArticleLikeButton from "@/feature/article/ui/ArticleLikeButton";
 import { getArticles } from "@/shared/api/article/article.api";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
@@ -30,9 +31,10 @@ const ArticleList = async () => {
                 </div>
               </div>
 
-              <Button size="sm" variant="outline">
-                {article.favoritesCount}
-              </Button>
+              <ArticleLikeButton
+                slug={article.slug}
+                count={article.favoritesCount}
+              />
             </div>
 
             <Typography variant="h3">{article.title}</Typography>

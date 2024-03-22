@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  useLoginMutation,
-  useRegisterMutation,
-} from "@/shared/api/session/session.query";
-import { isHttpError } from "@/shared/libs/fetcher/fetcher.exceptions";
-import { mutationErrorHandler } from "@/shared/libs/react-query/query.exceptions";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -17,16 +11,17 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { toast } from "@/shared/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { signIn, useSession } from "next-auth/react";
-import { LoginUserDto } from "@/shared/api/session/session.types";
 import { LoginUserDtoSchema } from "@/shared/api/session/session.schema";
+import { LoginUserDto } from "@/shared/api/session/session.types";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
 export const SignInForm = () => {
+  const session = useSession();
+
   const form = useForm<LoginUserDto>({
     resolver: zodResolver(LoginUserDtoSchema),
     defaultValues: {
@@ -43,13 +38,16 @@ export const SignInForm = () => {
       redirect: false,
     });
 
-    console.log("###", res);
+    // await login();
+    // console.log("###", res);
     // throw { message: "zz" };
     // TODO: 폼 에러처리를 어떻게 하는게 좋을까?
   };
 
   return (
     <Form {...form}>
+      zzzzz
+      {JSON.stringify(session.data?.user.token)}
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}

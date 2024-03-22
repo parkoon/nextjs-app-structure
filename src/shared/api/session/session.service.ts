@@ -1,5 +1,5 @@
 import { fetcher } from "@/shared/libs/fetcher/fetcher.main";
-import { realWorldPath } from "../api.libs";
+import { baseUrl } from "../api.libs";
 import { mapUser } from "./session.lib";
 import { UserDtoSchema } from "./session.schema";
 import { CreateUserDto, LoginUserDto } from "./session.types";
@@ -10,7 +10,7 @@ export const sessionService = {
     fetcher({
       request: {
         method: "POST",
-        url: realWorldPath("/users/login"),
+        url: baseUrl("/users/login"),
         body: JSON.stringify({ user }),
       },
       response: {
@@ -22,7 +22,7 @@ export const sessionService = {
     fetcher({
       request: {
         method: "POST",
-        url: realWorldPath("/users"),
+        url: baseUrl("/users"),
         body: JSON.stringify({ user }),
       },
       response: {
@@ -35,7 +35,7 @@ export const sessionService = {
     fetcher({
       request: {
         method: "POST",
-        url: realWorldPath("/users"),
+        url: baseUrl("/users"),
       },
       response: {
         contact: zodContract(UserDtoSchema),
@@ -46,7 +46,7 @@ export const sessionService = {
     fetcher({
       request: {
         method: "POST",
-        url: realWorldPath("/users"),
+        url: baseUrl("/users"),
       },
       response: {
         map: mapUser,
@@ -56,7 +56,7 @@ export const sessionService = {
     fetcher({
       request: {
         method: "POST",
-        url: realWorldPath("/users"),
+        url: baseUrl("/users"),
       },
       response: {
         contact: zodContract(UserDtoSchema),
@@ -66,7 +66,7 @@ export const sessionService = {
     fetcher({
       request: {
         method: "POST",
-        url: realWorldPath("/users"),
+        url: baseUrl("/users"),
       },
     });
   },
