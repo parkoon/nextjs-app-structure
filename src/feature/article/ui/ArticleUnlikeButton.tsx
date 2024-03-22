@@ -1,17 +1,17 @@
 "use client";
 
-import { likeArticleMutation } from "@/shared/api/article/article.queries";
+import { unlikeArticleMutation } from "@/shared/api/article";
 import { Button } from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
 import React, { MouseEventHandler } from "react";
 
-type ArticleLikeButtonProps = {
+type ArticleUnlikeButtonProps = {
   count: number;
   slug: string;
 };
 
-const ArticleLikeButton = ({ count, slug }: ArticleLikeButtonProps) => {
-  const { mutate } = likeArticleMutation();
+const ArticleUnlikeButton = ({ count, slug }: ArticleUnlikeButtonProps) => {
+  const { mutate } = unlikeArticleMutation();
   const router = useRouter();
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -22,10 +22,10 @@ const ArticleLikeButton = ({ count, slug }: ArticleLikeButtonProps) => {
     });
   };
   return (
-    <Button size="sm" variant="outline" onClick={handleClick}>
+    <Button size="sm" onClick={handleClick}>
       {count}
     </Button>
   );
 };
 
-export default ArticleLikeButton;
+export default ArticleUnlikeButton;
